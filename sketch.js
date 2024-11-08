@@ -127,18 +127,18 @@ let foods = [
   { x: 0.43, y: 0.07 ,type:2},
   { x: 0.73, y: 0.008 ,type:3},
   // { x: 0.07, y: 0.4 ,type:4},
-  { x: 0.35, y: 0.34 ,type:3},
+  // { x: 0.35, y: 0.34 ,type:3},
   // { x: 0.63, y: 0.27 ,type:5},
-  { x: 0.93, y: 0.2 ,type:6},
-  { x: -0.02, y: 0.67 ,type:6},
+  // { x: 0.93, y: 0.2 ,type:6},
+  // { x: -0.02, y: 0.67 ,type:6},
   // { x: 0.56, y: 0.55 ,type:7},
   { x: 0.85, y: 0.48 ,type:8},
-  { x: 0.16, y: 0.89 ,type:9},
+  // { x: 0.16, y: 0.89 ,type:9},
   // { x: 0.46, y: 0.85 ,type:10},
-  { x: 0.76, y: 0.77 ,type:11},
-  { x: 1.05, y: 0.71 ,type:4},
+  { x: 0.76, y: 0.77 ,type:4},
+  { x: 1.05, y: 0.71 ,type:5},
   { x: 0.65, y: 1.07 ,type:5},
-  { x: 0.95, y: 1.0 ,type:1},
+  // { x: 0.95, y: 1.0 ,type:1},
 ];
 
 function setup() {
@@ -289,6 +289,14 @@ function draw() {
     drawLightDonut(0.07, 0.4 , r1 * scaleFactor, min(side, side));
     drawBurger( 0.63, 0.27 , r1 * scaleFactor, min(side, side));
     drawSushi( 0.135, 0.13 , r1 * scaleFactor, min(side, side));
+    drawSushi( 0.93, 0.2  , r1 * scaleFactor, min(side, side));
+    drawSushi( -0.02, 0.67  , r1 * scaleFactor, min(side, side));
+    drawLimeCake( 0.95, 1.0  , r1 * scaleFactor, min(side, side));
+    drawDarkDonut(  0.16, 0.89  , r1 * scaleFactor, min(side, side));
+    drawPudding( 0.35, 0.34  , r1 * scaleFactor, min(side, side));
+    drawPudding( 0.35, 0.34  , r1 * scaleFactor, min(side, side));
+  
+
 }
 }
 
