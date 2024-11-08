@@ -135,7 +135,7 @@ let foods = [
   { x: 0.85, y: 0.48 ,type:8},
   // { x: 0.16, y: 0.89 ,type:9},
   // { x: 0.46, y: 0.85 ,type:10},
-  { x: 0.76, y: 0.77 ,type:4},
+  // { x: 0.76, y: 0.77 ,type:4},
   { x: 1.05, y: 0.71 ,type:5},
   { x: 0.65, y: 1.07 ,type:5},
   // { x: 0.95, y: 1.0 ,type:1},
@@ -294,8 +294,7 @@ function draw() {
     drawLimeCake( 0.95, 1.0  , r1 * scaleFactor, min(side, side));
     drawDarkDonut(  0.16, 0.89  , r1 * scaleFactor, min(side, side));
     drawPudding( 0.35, 0.34  , r1 * scaleFactor, min(side, side));
-    drawPudding( 0.35, 0.34  , r1 * scaleFactor, min(side, side));
-  
+    drawLightDonut( 0.76, 0.77  , r1 * scaleFactor, min(side, side));
 
 }
 }
