@@ -1,3 +1,112 @@
+// Array to hold randomPillShape objects
+let pills = []; 
+// the number of total number of randomPillShape
+let totalShapes = 2000;
+
+//This class creates and manages random shapes with randomPillShape
+class randomPillShape {
+  constructor(type) {
+    this.type = type;
+    // Initial random position on x-axis
+    this.x = random(0.8);
+    // Initial random position on y-axis
+    this.y = random(0.8); 
+    // Relative size of the pill
+    this.size = random(0.005, 0.015);
+    // Scale factor for noise movement
+    this.PillScale = random(0.1, 0.3);
+    // Starting point for Perlin noise
+    this.PillLocation = random(10);
+  }
+
+  display() {
+    noStroke();
+    
+    // Calculate the actual size based on the canvas dimensions
+    let minDimension = min(width, height);
+    let size = this.size * minDimension;
+
+    //Samples the Perlin Noise for x and y,
+    //x generates natural movement,
+    //y generates a more varied movement pattern by adding 10
+    let xNoise = noise(this.PillLocation);
+    let yNoise = noise(this.PillLocation + 10);
+
+    //The position of the shape is calculated by adding the noise values to its initial position
+    let x = (this.x + xNoise * this.PillScale) * width;
+    let y = (this.y + yNoise * this.PillScale) * height;
+
+    // Draw the shape based on the type
+    switch (this.type) {
+      case 'Pill1':
+        this.drawPill1(x, y, size);
+        break;
+      case 'Pill2':
+        this.drawPill2(x, y, size);
+        break;
+      case 'Pill3':
+        this.drawPill3(x, y, size);
+        break;
+      case 'Pill4':
+        this.drawPill4(x, y, size);
+        break;
+    }
+
+    // Increment noise location to create smooth movement
+    this.PillLocation += 0.01;
+  }
+  
+  //Draw white pills
+  drawPill1(x, y, size) {
+    fill(255, 255, 255);
+    circle(x, y, size);
+  }
+  
+  //Draw the rotated capsule
+  drawPill2(x, y, size) {
+    push();
+    translate(x, y);
+    //Applys rotation to rotate 10 degree;
+    rotate(radians(10));
+    fill(255, 175, 95);
+    circle(x, y, size);
+    rect(x,y+size/2,size,size);
+    fill(255, 246, 205)
+    circle(x, y+size, size);
+    rect(x,y+size/1.5,size,size/2);
+    pop();
+  }
+
+  //Draw the rotated capsule2
+  drawPill3(x, y, size) {
+    push();
+    translate(x, y);
+    //Applys rotation to rotate 45 degree;
+    rotate(radians(45));
+    fill(252, 244, 91); 
+    circle(x, y, size);
+    rect(x,y+size/2,size,size);
+    fill(208, 113, 113)
+    circle(x, y+size, size);
+    rect(x,y+size/1.5,size,size/2);
+    pop();
+  }
+  //Draw the rotated capsule3
+  drawPill4(x, y, size) {
+    push();
+    translate(x, y);
+    //Applys rotation to rotate 300 degree;
+    rotate(radians(300));
+    fill(143, 177, 232); 
+    circle(x, y, size);
+    rect(x,y+size/2,size,size);
+    fill(215, 243, 255)
+    circle(x, y+size, size);
+    rect(x,y+size/1.5,size,size/2);
+    pop();
+  }
+}
+
 // Create a plate array to store the position of plates
 let plates = [
   { x: 0.135, y: 0.13 ,type:1},
@@ -43,8 +152,24 @@ let foods = [
 function setup() {
   createCanvas(windowWidth, windowHeight);
   rectMode(CENTER);
-  // noLoop();
+
+  for (let i = 0; i < totalShapes; i++) {
+    let shapeType;
+
+    if (i < totalShapes / 4) {
+      shapeType = 'Pill1';
+    } else if (i < (totalShapes * 2) / 4) {
+      shapeType = 'Pill2';
+    } else if (i < (totalShapes * 3) / 4) {
+      shapeType = 'Pill3';
+    } else {
+      shapeType = 'Pill4';
+    }
+
+    pills.push(new randomPillShape(shapeType));
+  }
 }
+
 function windowResized() {
   let side = min(windowWidth, windowHeight);
   resizeCanvas(side, side);
@@ -55,27 +180,13 @@ function draw() {
   resizeCanvas(side, side);
   background(255, 216, 216);
 
+     for (let pill of pills) {
+      pill.display();
+    }
   let PlateRatio = 0.265;
   let PlateRadius = PlateRatio * side;
 
-  //use a for loop to repeats pills
-  for (let i = 0; i < 0.6*side; i++) {
-    let x = random(0, 1);
-    let y = random(0, 1);
-    let color1 = color(255, 152, 129 );
-    let color2 = color(254, 254, 162 );
-    let color3 = color(139, 195, 219)
-    let color4 = color(255)
-    let angle = random(TWO_PI);
 
-    drawCapsule(x, y, 0.25*side, side, color1, color2, angle);
-    fill(color3);
-    noStroke();
-    circle((x+0.1)*side, (y+0.1)*side, 0.015*side)
-    fill(color4);
-    circle((x+0.05)*side, (y+0.07)*side, 0.01*side)
-  }
-  
   for (let i = 0; i < plates.length; i++) {
     let plate = plates[i];
     noFill();
@@ -104,7 +215,7 @@ function draw() {
         break;
     }
   }
-  
+
   for (let i = 0; i < foods.length; i++) {
     let food = foods[i];
     noFill();
@@ -114,7 +225,7 @@ function draw() {
         drawSushi(food.x, food.y, PlateRadius,side)
         break;
       case 2:
-        drawLimeCake(food.x, food.y, PlateRadius,side)
+        drawCurry(food.x, food.y, PlateRadius,side)
         break;
       case 3:
         drawPudding(food.x, food.y, PlateRadius,side)
@@ -130,9 +241,8 @@ function draw() {
           break;
       case 7:
         drawLimeCake(food.x, food.y, PlateRadius,side)
-          break;
-      case 8:
-        drawPudding(food.x, food.y, PlateRadius,side)
+          break;      case 8:
+        drawToast(food.x, food.y, PlateRadius,side)
           break;
       case 9:
         drawDarkDonut(food.x, food.y, PlateRadius,side)
@@ -147,17 +257,7 @@ function draw() {
 }
 }
 
-//Draw pills
-function drawCapsule(x,y,r,side,color1,color2,angle){
-    push();
-    translate(x * side, y * side);
-    rotate(angle);
-    drawSemiCircle(0,-0.04*side, 0.05*r, PI/2, color1)
-    rect(0, -0.04*side-0.02*r, 0.05*r,0.04*r)
-    drawSemiCircle(0, -0.04*side-0.08*r, 0.05*r, 3*PI/2, color2)
-    rect(0, -0.04*side-0.06*r, 0.05*r,0.04*r)
-    pop();
-  }
+
 // Draw Plates Function
  //draw pink plate
  function drawPinkPlate(x,y,r,side){
@@ -818,3 +918,6 @@ function drawRotatedRectangle(x, y, w, h, angle) {
   rect(0, 0, w, h);
   pop();
 }
+
+
+

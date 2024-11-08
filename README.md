@@ -13,7 +13,7 @@ I transitions from a static to a dynamic state by removing noLoop(), but initial
 
 ## The Inspiration:
 The inspiration I gained from Damien Hirst's Spot Painting made me reflect on the infinite possibilities of simple shapes. This piece uses densely packed colored dots as its main element, creating an abstract yet harmonious visual effect through repeated dot patterns. The different-colored dots are randomly distributed across the canvas, each appearing independent yet interconnected, evoking a sense of intricate complexity and unified balance. This style inspired me to incorporate randomly distributed pill-like shapes into my work, allowing them to freely populate the background, creating an effect that is both vibrant and orderly.
-![Spot Painting](Image/Spot painting.jpg)
+![Spot Painting](https://github.com/zyan9696/zyan9696_9103_TUT02_Individual-Work/blob/8f12842bb39e6fd3ad22837e295c1cbda2f0b1f8/Image/Spot%20painting.jpg)
 
 ## The Technical Explanation:
 I define a randomPillShape class to create different types of pill shapes and use Perlin noise to achieve smooth, random motion. The size and movement range of each pill are generated randomly, ensuring that each pill has a unique appearance within the composition.
